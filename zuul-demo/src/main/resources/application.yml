@@ -1,0 +1,83 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: zuul-demo
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10000/eureka
+#######################zuul ������##################################################################
+zuul:
+  host:
+    # 代理普通http请求的超时时间
+    connect-timeout-millis: 2000
+    ###socket超时时间
+    socket-timeout-millis: 1000
+    ## http连接池大小
+    max-total-connections: 200
+    # 每个host最大连接数
+    max-per-route-connections: 20
+###前缀
+  #prefix: /nick
+  ##允许被忽略的服务
+  #ignored-services: helloclient
+  ribbon-isolation-strategy: semaphore
+  ##信号量模式下的最大并发
+  semaphore:
+    max-semaphores: 100
+
+  ####zuul路由##########################
+
+  routes:
+    route1:
+      #####拦截请求
+      path: /nick/**
+     ###转发给谁 url方式
+      url: http://127.0.0.1:8083
+
+    route2:
+      #####拦截请求
+      path: /tony/**
+      ### 转发给谁？ serviceId形式
+      serviceId: feign-consumer
+
+#    # 指定了一个路由，Id为uaa-token，在做验权的时候需要用到
+    user-token:
+      # 指定这个路径会匹配到这个路由。
+      path: /token/byPhone
+      # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
+      serviceId: user-demo
+
+# 以下是自定义的配置，配置的值会被注入到NickConfigurationBean这个类
+nick:
+  zuul:
+    token-filter:
+      noAuthenticationRoutes: user-token
+
+
+########hystrix相关配置
+# 注意项：
+# 1、zuul环境下，信号量模式下并发量的大小，zuul.semaphore.maxSemaphores这种配置方式优先级最高
+# 2、zuul环境下，资源隔离策略默认信号量，zuul.ribbonIsolationStrategy这种配置方式优先级最高
+# 3、zuul环境下，commandGroup 固定为RibbonCommand
+# 4、zuul环境下，commandKey 对应每个服务的serviceId
+#
+hystrix:
+  command:
+    # 这是默认的配置
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+          # 命令执行超时时间
+            timeoutInMilliseconds: 2000
+
+#####以下是关于token的配置#######
+token:
+  jwt:
+    key: nick123
+    iss: 11
+    expm: 10

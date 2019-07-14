@@ -1,0 +1,19 @@
+#spring:
+#  application:
+#    name: eureka-peer1
+#  cloud:
+#    config:
+#      ##要和上面的文件名对应
+#      name: eurekaserver
+#      uri : http://localhost:5000/
+#  profiles:
+#    ##对应文件名后面的环境
+#    active: dev
+#server:
+#  port: 10000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

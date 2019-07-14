@@ -1,0 +1,26 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: helloclient
+  cloud:
+    config:
+      name: helloclient
+      uri : http://localhost:5001/
+      username: nick
+      password: 123456
+#      discovery:
+#        service-id: config-server
+#        enabled: true
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10000/eureka/
+
+#eureka:
+#  client:
+#    enabled: false
+

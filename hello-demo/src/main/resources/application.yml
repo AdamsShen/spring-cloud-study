@@ -1,0 +1,10 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+name: mike
+age : 20
+password: 3353113843
+header: 11111

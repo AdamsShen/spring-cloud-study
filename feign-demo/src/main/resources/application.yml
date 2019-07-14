@@ -1,0 +1,23 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: feign-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone : http://127.0.0.1:10000/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread :
+            timeoutInMilliseconds: 100

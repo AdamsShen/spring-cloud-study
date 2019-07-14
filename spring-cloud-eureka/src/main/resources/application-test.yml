@@ -1,0 +1,81 @@
+
+spring:
+  profiles:
+    active: dev2
+
+
+---
+spring:
+  application:
+    name: eureka-peer
+  profiles: dev
+
+server:
+  port: 10000
+
+eureka:
+  instance:
+    hostname: dev
+    instance-id: dev
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:10000/eureka/,http://localhost:10001/eureka/,http://localhost:10002/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: true
+    peer-eureka-nodes-update-interval-ms: 10000
+
+
+---
+spring:
+  profiles: dev1
+  application:
+    name: eureka-peer2
+server:
+  port: 10001
+
+
+eureka:
+  instance:
+    hostname: dev1
+    instance-id: dev1
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:10000/eureka/,http://localhost:10001/eureka/,http://localhost:10002/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: true
+    peer-eureka-nodes-update-interval-ms: 10000
+---
+spring:
+   profiles: dev2
+   application:
+     name: eureka-peer3
+server:
+  port: 10002
+
+
+eureka:
+    instance:
+      hostname: dev2
+      instance-id: dev2
+    client:
+      ##????????
+      fetch-registry: false
+      ##?????????eureka
+      register-with-eureka: false
+      ##????????????????????????
+      service-url:
+        defaultZone: http://localhost:10000/eureka/,http://localhost:10001/eureka/,http://localhost:10002/eureka/
+    server:
+      ### ??eureka??????????????????л????instance??????????????
+      wait-time-in-ms-when-sync-empty: 0
+      enable-self-preservation: true
+      ###eureka???????????????
+      peer-eureka-nodes-update-interval-ms: 10000
+
+---

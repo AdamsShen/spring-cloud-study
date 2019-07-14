@@ -1,0 +1,64 @@
+server:
+  port: 5001
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+#          uri: https://github.com/yaojin156/tmp.git
+#          force-pull: true
+        #定义去拉取配置的地址
+          uri: D:\\lesson-1\\config-server\\src\\main\\resources\\configs
+        ###启用加密解密算法
+        encrypt:
+          enabled: true
+       ##允许本地资源覆盖
+      allow-override: true
+      override-none: true
+    ###引入账号密码机制
+  security:
+    user:
+      password: 123456
+      name: nick
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:10000/eureka/
+#    enabled: true
+
+
+#spring:
+#  application:
+#    name: app-provider-config
+#  cloud:
+#    config:
+#      enabled: true
+#      server:
+#        svn:
+#          uri: http://ip:port/svn/mogo/Coding/app-hotpoint-parent/app-global-config
+#          username: username
+#          password: password
+#          default-label: config-repo
+#  profiles:
+
+#    active: subversion
+eureka:
+  client:
+    enabled: false

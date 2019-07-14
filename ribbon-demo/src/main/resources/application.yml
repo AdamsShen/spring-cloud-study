@@ -1,0 +1,21 @@
+###����ʵ����
+spring:
+  application:
+    name: spring-cloud-ribbon-consumer
+server:
+  port: 8092
+
+#eureka:
+#  client:
+#    enabled: false
+
+
+#helloclient:
+#  ribbon:
+#    listOfServers: localhost:8001,localhost:8002
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10000/eureka/
